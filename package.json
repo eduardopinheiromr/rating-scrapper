@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
+    "dev": "nodemon server.js",
     "deploy": "git push heroku develop:master"
   },
   "keywords": [],
@@ -13,5 +14,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "puppeteer": "^11.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

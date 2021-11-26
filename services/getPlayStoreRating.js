@@ -1,7 +1,8 @@
 const puppeteer = require("puppeteer");
+const config = require("../utils/puppeteer-config");
 
 const getPlayStoreRating = async (playStorePage) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch(config);
   const page = await browser.newPage();
   await page.goto(playStorePage);
   await page.waitForSelector(".K9wGie");
