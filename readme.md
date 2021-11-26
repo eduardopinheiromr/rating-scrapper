@@ -1,8 +1,10 @@
 # App Rating Scrapper
 
+## https://app-rating-scrapper.herokuapp.com/
+
 Example:
 
-POST `route: "/"`
+POST `route: "/api/rating"`
 
 body:
 

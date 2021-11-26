@@ -5,7 +5,14 @@ const port = process.env.PORT || 3000;
 const getAppStoreRating = require("./services/getAppStoreRating");
 const getPlayStoreRating = require("./services/getPlayStoreRating");
 
-app.post("/", (req, res) => {
+app.get("/", (req, res) => {
+  res.writeHead(302, {
+    Location: "https://github.com/eduardopinheiromr/rating-scrapper",
+  });
+  res.end();
+});
+
+app.post("/api/rating", (req, res) => {
   Promise.all([
     getAppStoreRating(req.body.appStorePage),
     getPlayStoreRating(req.body.playStorePage),
