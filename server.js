@@ -24,17 +24,20 @@ app.get("/deploy", (req, res) => {
   res.status(200).json({ deployTag, deployDate });
 });
 
-app.post("/api/rating", (req, res) => {
-  setTimeout(() => res.status(500).send(req.body), 29000);
+app.get("/api/ios/rating", async (req, res) => {
   try {
-    Promise.all([
-      getAppStoreRating(req.body.appStorePage),
-      // getPlayStoreRating(req.body.playStorePage),
-    ]).then((values) => {
-      res.status(200).json({
-        appStoreRating: values[0],
-        // playStoreRating: values[1],
-      });
+    res.status(200).json({
+      appStoreRating: await getAppStoreRating(req.query.app),
+    });
+  } catch (error) {
+    res.status(500).json({ error, message: "Sorry, cannot scrape data" });
+  }
+});
+
+app.get("/api/android/rating", async (req, res) => {
+  try {
+    res.status(200).json({
+      playStoreRating: await getPlayStoreRating(req.query.app),
     });
   } catch (error) {
     res.status(500).json({ error, message: "Sorry, cannot scrape data" });
