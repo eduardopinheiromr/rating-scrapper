@@ -14,6 +14,16 @@ app.get("/", (req, res) => {
   res.end();
 });
 
+app.get("/deploy", (req, res) => {
+  const deployTag = require("./deployTag.json");
+  const deployDate =
+    "Deployed at " +
+    new Date(deployTag).toLocaleTimeString() +
+    " " +
+    new Date(deployTag).toLocaleDateString();
+  res.status(200).json({ deployTag, deployDate });
+});
+
 app.post("/api/rating", (req, res) => {
   setTimeout(() => res.status(500).send(req.body), 29000);
   try {

@@ -6,13 +6,16 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "deploy": "git push heroku develop:master"
+    "deploy": "yarn generate:tag && yarn push:heroku",
+    "generate:tag": "node generateDeployTag.js",
+    "push:heroku": "git push heroku develop:master"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "fs": "^0.0.1-security",
     "jssoup": "^0.0.15",
     "node-fetch": "2"
   },
