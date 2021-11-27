@@ -1,6 +1,6 @@
 # App Rating Scrapper
 
-## https://app-rating-scrapper.herokuapp.com/
+## https://rating-scrapper.vercel.app
 
 Example:
 
