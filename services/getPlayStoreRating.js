@@ -1,19 +1,16 @@
-const puppeteer = require("puppeteer");
-const config = require("../utils/puppeteer-config");
+const fetch = require("node-fetch");
+const scrapeHtmlTextBySelectorAndClass = require("../utils/scrapeHtmlTextBySelectorAndClass");
 
 const getPlayStoreRating = async (playStorePage) => {
-  const browser = await puppeteer.launch(config);
-  const page = await browser.newPage();
-  await page.goto(playStorePage);
-  await page.waitForSelector(".K9wGie");
-  const div = await page.$eval(".K9wGie", (el) => el.innerHTML);
+  const request = await fetch(playStorePage);
 
-  const googlePlayRating = Number(
-    div.split("</div>")[0].split(">")[1].replace(",", ".")
-  );
+  const html = await request.text();
 
-  await browser.close();
-  return googlePlayRating;
+  const ratingString = scrapeHtmlTextBySelectorAndClass(html, "div", "BHMmbe");
+
+  const ratingNumber = Number(ratingString.replace(",", "."));
+
+  return ratingNumber;
 };
 
 module.exports = getPlayStoreRating;

@@ -15,14 +15,15 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/rating", (req, res) => {
+  setTimeout(() => res.status(500).send(req.body), 29000);
   try {
     Promise.all([
       getAppStoreRating(req.body.appStorePage),
-      getPlayStoreRating(req.body.playStorePage),
+      // getPlayStoreRating(req.body.playStorePage),
     ]).then((values) => {
       res.status(200).json({
         appStoreRating: values[0],
-        playStoreRating: values[1],
+        // playStoreRating: values[1],
       });
     });
   } catch (error) {
