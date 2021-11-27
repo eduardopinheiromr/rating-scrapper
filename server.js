@@ -15,6 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/rating", (req, res) => {
+  setTimeout(() => res.status(500).send(req.body), 29000);
   try {
     Promise.all([
       getAppStoreRating(req.body.appStorePage),

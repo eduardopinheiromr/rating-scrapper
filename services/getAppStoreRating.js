@@ -1,21 +1,20 @@
-const puppeteer = require("puppeteer");
-const config = require("../utils/puppeteer-config");
+const fetch = require("node-fetch");
+const scrapeHtmlTextBySelectorAndClass = require("../utils/scrapeHtmlTextBySelectorAndClass");
 
 const getAppStoreRating = async (appStorePage) => {
-  const browser = await puppeteer.launch(config);
+  const request = await fetch(appStorePage);
 
-  const page = await browser.newPage();
-  await page.goto(appStorePage);
-  await page.waitForSelector(".we-customer-ratings__averages__display");
-  const stringRating = await page.$eval(
-    ".we-customer-ratings__averages__display",
-    (el) => el.innerHTML
+  const html = await request.text();
+
+  const ratingString = scrapeHtmlTextBySelectorAndClass(
+    html,
+    "span",
+    "we-customer-ratings__averages__display"
   );
 
-  const appStoreRating = Number(stringRating.replace(",", "."));
-  await browser.close();
+  const ratingNumber = Number(ratingString.replace(",", "."));
 
-  return appStoreRating;
+  return ratingNumber;
 };
 
 module.exports = getAppStoreRating;
